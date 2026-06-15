@@ -4,6 +4,8 @@ jobs:
     test:
         runs-on: ubuntu-latest
         steps:
+            - name: Out github
+              run: echo "${{ toJSON(github)}}"
             - name: get code
               uses: actions/checkout@v6
             - name: Install NodeJS
