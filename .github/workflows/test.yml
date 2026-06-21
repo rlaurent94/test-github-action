@@ -7,7 +7,6 @@ on:
         paths-ignore:
             - "docs/**"
             - "README.md"
-            - ".github/workflows/**"
     pull_request:
         types: [opened, synchronize, reopened]
         branches:
