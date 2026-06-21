@@ -1,5 +1,22 @@
 name: Test project
-on: [push, workflow_dispatch]
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            - main
+        branches-ignore:
+            - "dev-*"
+            - "feat/**"
+        paths-ignore:
+            - "docs/**"
+            - "README.md"
+            - ".github/workflows/**"
+    pull_request:
+        types: [opened, synchronize, reopened]
+        branches:
+            - main
+            - "dev-*"
+            - "feat/**"
 jobs:
     test:
         runs-on: ubuntu-latest
@@ -16,6 +33,25 @@ jobs:
               run: npm ci
             - name: Run tests
               run: npm test
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: get code
+              uses: actions/checkout@v6
+            - name: Install NodeJS
+              uses: actions/setup-node@v3              
+              with:
+                node-version: 18
+            - name: install dependencies
+              run: npm ci
+            - name: build wbsite
+              run: npm run build
+            - name: Upload artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                name: bdist-files
+                path: dist
+
     deploy:
         runs-on: ubuntu-latest
         needs: test
