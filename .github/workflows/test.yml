@@ -25,6 +25,11 @@ jobs:
               uses: actions/setup-node@v3              
               with:
                 node-version: 18
+            - name: Cache dependencies
+              uses: actions/cache@v5
+              with:
+                path: ~/.npm
+                key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
             - name: install dependencies
               run: npm ci
             - name: Run tests
@@ -41,6 +46,11 @@ jobs:
             uses: actions/setup-node@v3
             with:
               node-version: 18
+          - name: Cache dependencies
+            uses: actions/cache@v5
+            with:
+              path: ~/.npm
+              key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
           - name: install dependencies
             run: npm ci
           - name: build wbsite
