@@ -32,17 +32,22 @@ jobs:
     build:
         runs-on: ubuntu-latest
         needs: test
+        outputs:
+          script-files: ${{ steps.publish-script-file.outputs.script-file}}
         steps:
           - name: get code
             uses: actions/checkout@v6
           - name: Install NodeJS
-            uses: actions/setup-node@v3              
+            uses: actions/setup-node@v3     publish-script-file         
             with:
               node-version: 18
           - name: install dependencies
             run: npm ci
           - name: build wbsite
             run: npm run build
+          - name: publish js file
+            id: publish-script-file
+            run: find dist/assets/*.js -type f -execdir echo "script-file={} >> $GITHUB_OUTPUT";''
           - name: Upload artifacts
             uses: actions/upload-artifact@v7
             with:
@@ -53,6 +58,8 @@ jobs:
         runs-on: ubuntu-latest
         needs: build
         steps:
+          - name: list output de build
+            run: echo ${{ needs.build.outputs.script-files }}
           - name: get build artifacts
             uses: actions/download-artifact@v8
             with:
