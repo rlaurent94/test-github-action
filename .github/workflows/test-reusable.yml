@@ -15,11 +15,12 @@ jobs:
     deploy-test:
         runs-on: ubuntu-latest
         outputs:
-            result: ${{ steps.output-info.outputs.result }}
+            result: ${{ steps.output-result.outputs.result }}
         steps:
             - name: Output information
               id: output-info
               run: echo  ${{ inputs.artifact-name }}
             - name: result
-              run: echo "result=${{ steps.output-info.outputs.result }}" >> $GITHUB_OUTPUT \;
+              id: output-result
+              run: echo "result=success" >> $GITHUB_OUTPUT \;
           
