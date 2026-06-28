@@ -7,9 +7,19 @@ on:
                 required: false
                 default: hello
                 type: string
+        outputs:
+            result:
+                description: result of workflow
+                value: ${{ jobs.deploy-test.outputs.result }}
 jobs:
     deploy-test:
         runs-on: ubuntu-latest
+        outputs:
+            result: ${{ steps.output-info.outputs.result }}
         steps:
             - name: Output information
+              id: output-info
               run: echo  ${{ inputs.artifact-name }}
+            - name: result
+              run: echo "result=${{ steps.output-info.outputs.result }}" >> $GITHUB_OUTPUT \;
+          
