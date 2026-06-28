@@ -1,8 +1,14 @@
 name: Test reusable
-on: workflow_call
+on: workflow_call:
+    inputs:
+        artifact-name:
+            description: simple text
+            required: false
+            default: hello
+            type: string
 jobs:
     deploy-test:
         runs-on: ubuntu-latest
         steps:
             - name: Output information
-              run: echo "Deploying test reusable"
+              run: echo  ${{ inputs.artifact-name }}
