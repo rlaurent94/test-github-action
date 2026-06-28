@@ -1,11 +1,12 @@
 name: Test reusable
-on: workflow_call:
-    inputs:
-        artifact-name:
-            description: simple text
-            required: false
-            default: hello
-            type: string
+on: 
+    workflow_call:
+        inputs:
+            artifact-name:
+                description: simple text
+                required: false
+                default: hello
+                type: string
 jobs:
     deploy-test:
         runs-on: ubuntu-latest
