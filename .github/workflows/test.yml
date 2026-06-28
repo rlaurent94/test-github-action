@@ -76,6 +76,8 @@ jobs:
     deploy-bis:
         needs: build
         uses: ./.github/workflows/test-reusable.yml
+        with:
+          artifact-name: "hello world"
     deploy:
         runs-on: ubuntu-latest
         needs: build
