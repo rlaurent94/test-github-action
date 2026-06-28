@@ -47,6 +47,8 @@ jobs:
         outputs:
           script-files: ${{ steps.publish-script-file.outputs.script-file}}
         steps:
+          - name: Out github
+            run: echo "${{ toJSON(github)}}"
           - name: get code
             uses: actions/checkout@v6
           - name: Install NodeJS
