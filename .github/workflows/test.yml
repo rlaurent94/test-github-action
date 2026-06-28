@@ -41,6 +41,9 @@ jobs:
         strategy:
           matrix:
             node-version: [14,16, 18]
+            include:
+              - node-version : 18
+                operating-system: windows-latest
         outputs:
           script-files: ${{ steps.publish-script-file.outputs.script-file}}
         steps:
