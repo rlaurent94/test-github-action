@@ -1,0 +1,8 @@
+name: Test reusable
+on: workflow_call
+jobs:
+    deploy-test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Output information
+              run: echo "Deploying test reusable"

@@ -73,6 +73,9 @@ jobs:
               name: dist-files
               path: dist
 
+    deploy-bis:
+        needs: build
+        uses: ./.github/workflows/test-reusable.yml
     deploy:
         runs-on: ubuntu-latest
         needs: build
